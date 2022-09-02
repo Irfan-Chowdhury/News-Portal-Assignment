@@ -18,6 +18,8 @@ const displayCateories = (categories) =>{
 
 
 const loadCategoryById = (categoryId) => {
+    toggleSpinner(true);
+
     navbarColorChange(categoryId);
     const url = 'https://openapi.programming-hero.com/api/news/category/0'+categoryId;
     fetch(url)
@@ -65,6 +67,8 @@ const displayCategoryWiseNews = CategoryWiseNews =>{
         `; 
         newsContainer.appendChild(cardNews);
     });
+    toggleSpinner(false);
+
 }
 
 
@@ -79,6 +83,15 @@ const navbarColorChange = categoryId => {
     navbar.style.color = "blue";
     if (ids_arr.length == 2) {
         ids_arr.shift();
+    }
+}
+
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if(isLoading){
+        loaderSection.classList.remove('d-none');
+    }else{
+        loaderSection.classList.add('d-none');
     }
 }
 
