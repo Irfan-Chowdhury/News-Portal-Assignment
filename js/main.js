@@ -7,18 +7,12 @@ const loadCategories = () => {
 
 const displayCateories = (categories) =>{
     const categoryContainer = document.getElementById('category-container');
-
-    // const lastCategory = categories.length-1;
-    // const categoryId   = categories[lastCategory].category_id;
-    // const categoryName = categories[lastCategory].category_name;
-    // console.log(categoryId+' '+ categoryName);
-
     categories.reverse().forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('col');
         const categoryId   = category.category_id;
         const categoryName = category.category_name;
-        categoryDiv.innerHTML = `<button id="navButton-${categoryId}" onclick="loadCategoryByIdAndName(${categoryId},'${categoryName}')" style="border: none; background:rgb(246,246,246)">
+        categoryDiv.innerHTML = `<button id="navButton-${categoryId}" onclick="loadCategoriesByIdAndName(${categoryId},'${categoryName}')" style="border: none; background:rgb(246,246,246)">
                                     <b>${categoryName}</b>
                                 </button>`;
         categoryContainer.appendChild(categoryDiv);
@@ -35,7 +29,7 @@ const errorHandling = error => {
 }
 
 
-const loadCategoryByIdAndName = (categoryId, categoryName) => {
+const loadCategoriesByIdAndName = (categoryId, categoryName) => {
     toggleSpinner(true);
 
     navbarColorChange(categoryId);
@@ -47,6 +41,8 @@ const loadCategoryByIdAndName = (categoryId, categoryName) => {
 }
 
 
+
+
 const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
     
     const foundCard = document.getElementById('found-card');
@@ -55,7 +51,8 @@ const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
     const foundText = document.getElementById('found-text');
     if (categoryWiseNews.length==0) {
         foundText.innerText = `No data found `;
-        return;
+        // toggleSpinner(false);
+        // return;
     }
     foundText.innerHTML = `${categoryWiseNews.length} items found for the category of <i><b>${categoryName}</b></i>`;
 
@@ -112,11 +109,11 @@ const newsDetails = (_id,categoryName) => {
     const url = `https://openapi.programming-hero.com/api/news/${_id}`;
     fetch(url)
     .then(res => res.json())
-    .then(data => displayNewDetails(data.data[0], categoryName))
+    .then(data => showNewsDetailsModal(data.data[0], categoryName))
     .catch(error => errorHandling(error));
 }
 
-const displayNewDetails = (data,categoryName) =>{
+const showNewsDetailsModal = (data,categoryName) =>{
     const modalTitle = document.getElementById('modalTitle');
     modalTitle.innerText = 'Category of '+ categoryName;
 
@@ -176,3 +173,19 @@ const toggleSpinner = isLoading => {
 
 
 loadCategories();
+
+// const byDefaultLoadCategoriesByIdAndName = (categoryId, categoryName) => {
+//     // toggleSpinner(true);
+//     // console.log(categoryId);
+//     // navbarColorChange(categoryId);
+//     // const navbarTest = document.getElementById('navButton-07');
+//     // navbarTest.style.color = "blue";
+
+//     const url = 'https://openapi.programming-hero.com/api/news/category/0'+categoryId;
+//     fetch(url)
+//     .then(res => res.json())
+//     .then(data => displayCategoryWiseNews(data.data, categoryName))
+//     .catch(error => errorHandling(error));
+// }
+
+// byDefaultLoadCategoriesByIdAndName(8, 'All News');
