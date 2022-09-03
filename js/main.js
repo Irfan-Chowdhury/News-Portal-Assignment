@@ -2,6 +2,7 @@ const loadCategories = () => {
     fetch('https://openapi.programming-hero.com/api/news/categories')
     .then(res => res.json())
     .then(data => displayCateories(data.data.news_category))
+    .catch(error => errorHandling(error));
 }
 
 const displayCateories = (categories) =>{
@@ -16,6 +17,15 @@ const displayCateories = (categories) =>{
                                 </button>`;
         categoryContainer.appendChild(categoryDiv);
     });
+}
+
+const errorHandling = error => {
+    console.log(error);
+    const errorHandling = document.getElementById('error-handling');
+    errorHandling.classList.remove('d-none');
+
+    const errorText = document.getElementById('error-text');
+    errorText.innerText = '404 Not Found'
 }
 
 
