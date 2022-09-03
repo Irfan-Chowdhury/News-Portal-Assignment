@@ -9,25 +9,29 @@ const displayCateories = (categories) =>{
     categories.reverse().forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('col');
-        categoryDiv.innerHTML = `<button id="navButton-${category.category_id}" onclick="loadCategoryById(${category.category_id})" style="border: none; background:rgb(246,246,246)">
-                                    <b>${category.category_name}</b>
+        const categoryId   = category.category_id;
+        const categoryName = category.category_name;
+        categoryDiv.innerHTML = `<button id="navButton-${categoryId}" onclick="loadCategoryById(${categoryId},'${categoryName}')" style="border: none; background:rgb(246,246,246)">
+                                    <b>${categoryName}</b>
                                 </button>`;
         categoryContainer.appendChild(categoryDiv);
     });
 }
 
 
-const loadCategoryById = (categoryId) => {
+const loadCategoryById = (categoryId, categoryName) => {
+    console.log(categoryName);
+
     toggleSpinner(true);
 
     navbarColorChange(categoryId);
     const url = 'https://openapi.programming-hero.com/api/news/category/0'+categoryId;
     fetch(url)
     .then(res => res.json())
-    .then(data => displayCategoryWiseNews(data.data))
+    .then(data => displayCategoryWiseNews(data.data, categoryName))
 }
 
-const displayCategoryWiseNews = categoryWiseNews =>{
+const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
     
     const foundCard = document.getElementById('found-card');
     foundCard.classList.remove('d-none');
@@ -37,7 +41,7 @@ const displayCategoryWiseNews = categoryWiseNews =>{
         foundText.innerText = `No data found `;
         return;
     }
-    foundText.innerText = `${categoryWiseNews.length} items found `;
+    foundText.innerHTML = `${categoryWiseNews.length} items found for the category of <i><b>${categoryName}</b></i>`;
 
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML='';
