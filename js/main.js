@@ -7,12 +7,18 @@ const loadCategories = () => {
 
 const displayCateories = (categories) =>{
     const categoryContainer = document.getElementById('category-container');
+
+    // const lastCategory = categories.length-1;
+    // const categoryId   = categories[lastCategory].category_id;
+    // const categoryName = categories[lastCategory].category_name;
+    // console.log(categoryId+' '+ categoryName);
+
     categories.reverse().forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('col');
         const categoryId   = category.category_id;
         const categoryName = category.category_name;
-        categoryDiv.innerHTML = `<button id="navButton-${categoryId}" onclick="loadCategoryById(${categoryId},'${categoryName}')" style="border: none; background:rgb(246,246,246)">
+        categoryDiv.innerHTML = `<button id="navButton-${categoryId}" onclick="loadCategoryByIdAndName(${categoryId},'${categoryName}')" style="border: none; background:rgb(246,246,246)">
                                     <b>${categoryName}</b>
                                 </button>`;
         categoryContainer.appendChild(categoryDiv);
@@ -25,13 +31,11 @@ const errorHandling = error => {
     errorHandling.classList.remove('d-none');
 
     const errorText = document.getElementById('error-text');
-    errorText.innerText = '404 Not Found'
+    errorText.innerText = '404 Not Found';
 }
 
 
-const loadCategoryById = (categoryId, categoryName) => {
-    console.log(categoryName);
-
+const loadCategoryByIdAndName = (categoryId, categoryName) => {
     toggleSpinner(true);
 
     navbarColorChange(categoryId);
@@ -39,7 +43,9 @@ const loadCategoryById = (categoryId, categoryName) => {
     fetch(url)
     .then(res => res.json())
     .then(data => displayCategoryWiseNews(data.data, categoryName))
+    .catch(error => errorHandling(error));
 }
+
 
 const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
     
@@ -55,10 +61,11 @@ const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
 
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML='';
+
+    // Sort By total View
+    categoryWiseNews.sort((a, b) =>  b.total_view - a.total_view);
     
     categoryWiseNews.forEach( item => {
-        // console.log(item.author.name);
-
         let cardNews = document.createElement('div');
         cardNews.innerHTML = `
             <div class="card mb-3 mt-3" >
