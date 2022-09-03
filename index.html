@@ -70,6 +70,50 @@
     <section class="container" id="news-container">
     </section>
 
+    <!-- Modal -->
+    <div class="modal fade" id="newDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card mb-3">
+                        <img id="cardImage" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="cardTitle" class="card-title"></h5>
+                            <p id="cardDescription" class="card-text"></p> <br><br>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="card-text">
+                                        <small id="AuthorName" class="text-muted"></small> <br>
+                                        <small id="publishTime" class="text-muted"></small>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="card-text">
+                                        <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i></small> &nbsp;
+                                        <small id="totalView" class="text-muted"></small>
+                                    </p>
+                               </div>
+                                <div>
+                                    <p class="card-text">
+                                        <small class="text-muted" id="rating"></small> <br>
+                                        <small id="status" class="text-muted"></small>
+                                    </p>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://use.fontawesome.com/16d921efae.js"></script>
 

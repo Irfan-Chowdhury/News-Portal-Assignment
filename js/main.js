@@ -64,6 +64,7 @@ const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
 
     // Sort By total View
     categoryWiseNews.sort((a, b) =>  b.total_view - a.total_view);
+    // console.log(categoryWiseNews[0]._id);
     
     categoryWiseNews.forEach( item => {
         let cardNews = document.createElement('div');
@@ -82,13 +83,18 @@ const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
                                     <img src="${item.author.img}" class=" mt-4 rounded float-start" style="width:50px;border-radius: 50%;">
                                 </div>
                                 <div class="mt-3 ms-2">
-                                    <small>${item.author.name}</small> <br>
+                                    <small>${item.author.name ? item.author.name : 'No data found' }</small> <br>
                                     <small class="text-muted">${item.author.published_date}</small>
                                 </div>
                                 <div class="mt-3 ms-5" >
                                     <b style="margin-left:70px" class="mt-5">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
-                                        <small class="text-muted">${item.total_view}</small>
+                                        <small class="text-muted">${item.total_view ? item.total_view:'No data found'}</small>
+                                    </b>
+                                </div>
+                                <div class="mt-3 ms-5" >
+                                    <b style="margin-left:70px" class="mt-5">
+                                        <a href="#"><i onclick="newsDetails('${item._id}','${categoryName}')" class="fa fa-arrow-right text-primary" data-bs-toggle="modal" data-bs-target="#newDetailsModal"></i></a>
                                     </b>
                                 </div>
                             </div>
@@ -100,8 +106,49 @@ const displayCategoryWiseNews = (categoryWiseNews, categoryName) =>{
         newsContainer.appendChild(cardNews);
     });
     toggleSpinner(false);
-
 }
+
+const newsDetails = (_id,categoryName) => {
+    const url = `https://openapi.programming-hero.com/api/news/${_id}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayNewDetails(data.data[0], categoryName))
+    .catch(error => errorHandling(error));
+}
+
+const displayNewDetails = (data,categoryName) =>{
+    const modalTitle = document.getElementById('modalTitle');
+    modalTitle.innerText = 'Category of '+ categoryName;
+
+    const cardImage = document.getElementById('cardImage');
+    cardImage.src = data.image_url;
+
+    const cardTitle     = document.getElementById('cardTitle');
+    cardTitle.innerText = data.title;
+
+    const cardDescription     = document.getElementById('cardDescription');
+    cardDescription.innerText = data.details;
+
+    const AuthorName     = document.getElementById('AuthorName');
+    AuthorName.innerText = data.author.name ? 'Author : '+data.author.name: 'Author : '+'No data found';
+
+    const publishTime     = document.getElementById('publishTime');
+    publishTime.innerText = data.author.published_date ? 'Publish Time : '+data.author.published_date: 'No data found';
+
+    const totalView     = document.getElementById('totalView');
+    totalView.innerText = data.total_view ? data.total_view: 'No data found';
+
+    const rating     = document.getElementById('rating');
+    rating.innerText = data.rating.number ? 'Rating : '+data.rating.number: 'Rating : '+'No data found';
+
+    const status     = document.getElementById('status');
+    status.innerText = data.rating.badge ? 'Status : '+data.rating.badge: 'Status : '+'No data found';
+
+
+    console.log(categoryName);
+}
+
+
 
 
 let ids_arr = [];
