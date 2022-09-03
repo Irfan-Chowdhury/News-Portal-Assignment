@@ -24,13 +24,20 @@
                     <img src="image/logo.jpg" alt="" width="80" height="60" class="d-inline-block align-text-top">
                     <span><strong>CTG Online Portal</strong></span>
                 </a>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;"></ul>
-                    <form class="d-flex">
-                        <div><a href="index.html">News</a></div>
-                        &nbsp; &nbsp; &nbsp;
-                        <div><a href="blog.html"> Blog</a></div>
-                    </form>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active text-primary" aria-current="page" href="index.html">News</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -42,7 +49,7 @@
             <div class="card-body">
                 <h1 id="error-text" class="text-danger"></h1>
             </div>
-          </div>
+        </div>
     </section>
 
 
@@ -55,9 +62,9 @@
     <!-- Total category found -->
     <div id="found-card" class="d-none card container mt-3">
         <div id="found-text" class="card-body">
-          
+
         </div>
-      </div>
+    </div>
 
     <!-- Loader -->
     <section>
@@ -76,8 +83,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="card mb-3">
@@ -94,16 +101,16 @@
                                 </div>
                                 <div>
                                     <p class="card-text">
-                                        <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i></small> &nbsp;
+                                        <small class="text-muted"><i class="fa fa-eye" aria-hidden="true"></i></small>&nbsp;
                                         <small id="totalView" class="text-muted"></small>
                                     </p>
-                               </div>
+                                </div>
                                 <div>
                                     <p class="card-text">
                                         <small class="text-muted" id="rating"></small> <br>
                                         <small id="status" class="text-muted"></small>
                                     </p>
-                               </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -119,7 +126,9 @@
     <script src="https://use.fontawesome.com/16d921efae.js"></script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 
