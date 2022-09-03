@@ -9,7 +9,7 @@ const displayCateories = (categories) =>{
     categories.reverse().forEach(category => {
         const categoryDiv = document.createElement('div');
         categoryDiv.classList.add('col');
-        categoryDiv.innerHTML = `<button id="navButton-${category.category_id}" onclick="loadCategoryById(${category.category_id})" style="border: none; background:white">
+        categoryDiv.innerHTML = `<button id="navButton-${category.category_id}" onclick="loadCategoryById(${category.category_id})" style="border: none; background:rgb(246,246,246)">
                                     <b>${category.category_name}</b>
                                 </button>`;
         categoryContainer.appendChild(categoryDiv);
@@ -27,11 +27,22 @@ const loadCategoryById = (categoryId) => {
     .then(data => displayCategoryWiseNews(data.data))
 }
 
-const displayCategoryWiseNews = CategoryWiseNews =>{
+const displayCategoryWiseNews = categoryWiseNews =>{
+    
+    const foundCard = document.getElementById('found-card');
+    foundCard.classList.remove('d-none');
+
+    const foundText = document.getElementById('found-text');
+    if (categoryWiseNews.length==0) {
+        foundText.innerText = `No data found `;
+        return;
+    }
+    foundText.innerText = `${categoryWiseNews.length} items found `;
+
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML='';
     
-    CategoryWiseNews.forEach( item => {
+    categoryWiseNews.forEach( item => {
         // console.log(item.author.name);
 
         let cardNews = document.createElement('div');
